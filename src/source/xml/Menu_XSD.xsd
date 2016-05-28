@@ -1,0 +1,161 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified"
+            version="1.0">
+    <!-- in this schema was implemented Venetian Blind pattern -->
+    <xsd:complexType name="MenuType">
+        <xsd:sequence>
+            <xsd:element name="metaData" type="StructureType"/>
+            <xsd:element name="category" type="CategoryType" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="name"/>
+        <xsd:attribute name="version"/>
+    </xsd:complexType>
+
+    <!-- metadata -->
+
+    <xsd:complexType name="StructureType">
+        <xsd:sequence>
+            <xsd:element name="structure">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="col" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- category of menu description -->
+
+    <xsd:complexType name="CategoryType">
+        <xsd:sequence>
+            <xsd:element name="title" type="CategoryTitleType"/>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:element name="simpleMenuItem">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="menuItem" type="SimpleMenuItemType"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+
+                <xsd:element name="complexMenuItem">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="menuItem" type="ComplexMenuItemType"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CategoryTitleType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ХОЛОДНЫЕ ЗАКУСКИ"/>
+            <xsd:enumeration value="ГОРЯЧИЕ ЗАКУСКИ"/>
+            <xsd:enumeration value="ЗАВТРАКИ"/>
+            <xsd:enumeration value="ДЕСЕРТЫ"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <!-- there are 2 based types of menu item: simple consist of only one dish variant,
+        complex include two or more dish variants -->
+
+    <xsd:complexType name="SimpleMenuItemType">
+        <xsd:sequence>
+            <xsd:group ref="unchangableMenuItemComponents"/>
+            <xsd:element name="description" minOccurs="0"/>
+            <xsd:element name="ratio" type="ratioType"/>
+            <xsd:element name="price" minOccurs="0" type="SimplePriceType"/>
+        </xsd:sequence>
+        <xsd:attribute name="isComplex" type = "xsd:boolean" fixed="false"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="ComplexMenuItemType">
+        <xsd:sequence>
+            <xsd:group ref="unchangableMenuItemComponents"/>
+            <xsd:element name="description" type="ComplexDescriptionType"/>
+            <xsd:element name="ratio" type="ratioType"/>
+            <xsd:element name="price" type="ComplexPriceType"/>
+        </xsd:sequence>
+        <xsd:attribute name="isComplex" type = "xsd:boolean" fixed="true"/>
+    </xsd:complexType>
+
+    <!-- description of types -->
+
+    <!--this property is same for both types -->
+    <xsd:group name="unchangableMenuItemComponents">
+        <xsd:sequence>
+            <xsd:element name="foto">
+                <xsd:complexType>
+                    <xsd:attribute name="path"/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="name"/>
+        </xsd:sequence>
+    </xsd:group>
+
+
+    <xsd:complexType name="ratioType">
+        <xsd:simpleContent>
+            <xsd:extension base="RatioListType">
+                <xsd:attribute name="separator" use="optional" default="/"/>
+                <xsd:attribute name="unit" use="optional" default="грамм"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="RatioListType">
+        <xsd:list itemType="xsd:integer"> </xsd:list>
+    </xsd:simpleType>
+
+    <!-- property for simple type -->
+
+    <xsd:simpleType name="SimplePriceType">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minExclusive value="0.0"/>
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- property for complex type-->
+
+    <xsd:complexType name="ComplexPriceType">
+        <xsd:sequence>
+            <xsd:element name="priceForExactType" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="variantNumber" type="xsd:byte"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ComplexDescriptionType">
+        <xsd:sequence>
+
+            <xsd:element name="menuItemVariant" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="variantNumber"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:element name="menu" type="MenuType"/>
+
+  </xsd:schema>
