@@ -58,4 +58,9 @@ class MenuItemConcrete extends MenuItemComponent {
     public String toString() {
       return super.toString() + " description= " + getDescription() + " price= " + getPrice() + " }\n";
     }
+
+    @Override
+    public String getId() {
+        return super.getId();
+    }
 }

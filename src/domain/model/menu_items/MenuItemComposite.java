@@ -8,9 +8,12 @@ import java.util.List;
  */
 class MenuItemComposite extends MenuItemComponent {
     private List<MenuItemComponent> printedMenuItem;
+    String commonDescription;
+
     public MenuItemComposite(String name) {
         super(name);
     }
+
 
     public MenuItemComposite(String name, List<MenuItemComponent> printedMenuItem) {
         super(name);
@@ -37,6 +40,7 @@ class MenuItemComposite extends MenuItemComponent {
 
     @Override
     public void setDescription(String description) {
+        this.commonDescription = description;
     }
     @Override
     public Ratio getRatio() {
@@ -45,6 +49,9 @@ class MenuItemComposite extends MenuItemComponent {
 
     @Override
     public void setRatio(Ratio ratio) {
+        for (MenuItemComponent item : printedMenuItem) {
+            item.setRatio(ratio);
+        }
         super.setRatio(ratio);
     }
 
@@ -65,6 +72,9 @@ class MenuItemComposite extends MenuItemComponent {
 
     @Override
     public void setPrice(String price) {
+        for (MenuItemComponent item : printedMenuItem) {
+            item.setPrice(price);
+        }
 
     }
 

@@ -12,6 +12,7 @@ public abstract class MenuItemComponent {
     private File foto;
     private String name;
     private Ratio ratio;
+    private String id;
     private final static File defaultFoto = new File("\\images\\no_image.jpg");
 
     public MenuItemComponent(String name) {
@@ -38,6 +39,18 @@ public abstract class MenuItemComponent {
     }
     public void setRatio(Ratio ratio) {
         this.ratio = ratio;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public static File getDefaultFoto() {
+        return defaultFoto;
     }
 
     @Override

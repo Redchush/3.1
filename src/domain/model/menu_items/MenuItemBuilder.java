@@ -14,44 +14,72 @@ import java.util.Map;
  * and limiting the model interface
  */
 public class MenuItemBuilder {
-    public static MenuItemComponent createSimpleMenuComponent(String name, String foto, String description, String price,
-                                                              List<String> ratio, String ratioUnit) {
+
+    Menu menu =new Menu();
+    public List<MenuCategory> categoryList = new ArrayList<>();
+    public List<MenuItemComponent> itemList = new ArrayList<>();
+
+    public MenuItemComponent createSimpleMenuComponent(String id, String name, String foto, String description, String price,
+                                                              List<String> ratio, String ratioUnit, boolean isSimple) {
         File thisFoto = null;
-        if (!foto.equals("undefined")) thisFoto = new File(foto);
+        if (foto!= null&&!foto.equals("undefined")) thisFoto = new File(foto);
         MenuItemConcrete item = new MenuItemConcrete(name, description, price);
         item.setFoto(thisFoto);
         item.setRatio(createListOfIngredients(ratio, ratioUnit));
+        item.setId(id);
       //  System.out.println(item);
+        if (!isSimple) itemList.add(item);
         return item;
     }
-    public static MenuItemComponent createComplexMenuComponent(String name, String foto,
+    public void createComplexMenuComponent(String id, String name, String foto,
                                                                Map<String, Map<String, String>> mapOfSubElements,
                                                                List<String> ratio, String ratioUnit){
         List<MenuItemComponent> menuItems = new ArrayList<>();
+        int counter = 1;
+        int size = mapOfSubElements.size();
         for (Map.Entry<String,Map<String, String>> item : mapOfSubElements.entrySet()){
            String variant = item.getKey();
            Object[] values = item.getValue().values().toArray();
            String concreteDescription = (String) values[0];
            String concretePrice = (String) values[1];
-           MenuItemComponent item1 = createSimpleMenuComponent(name, foto, concreteDescription, concretePrice, ratio, ratioUnit);
+           MenuItemComponent item1 = createSimpleMenuComponent(id + "_" + variant, name, foto, concreteDescription,
+                                                                concretePrice, ratio, ratioUnit, false);
            menuItems.add(item1);
         }
         MenuItemComposite items = new MenuItemComposite(name, menuItems);
         File thisFoto = null;
         if (!foto.equals("undefined")) thisFoto = new File(foto);
         items.setFoto(thisFoto);
-        return items;
+        itemList.add(items);
     }
 
-    public static MenuCategory createMenuCategory(String title, List<MenuItemComponent> components){
+    public MenuCategory createMenuCategory(String title, List<MenuItemComponent> components){
+        MenuCategory category = new MenuCategory(title, components);
+        menu.addCategory(category);
         return new MenuCategory(title, components);
     }
-
-    public static Menu createMenu(List<MenuCategory> categories, String name, String version){
-        return new Menu(categories, name, version);
+    public void createMenuCategoryByFlushing(String title){
+        MenuCategory category = new MenuCategory(title, itemList);
+//        System.out.println("!!!!Category creating "){
+//
+//        }
+        menu.addCategory(category);
+//        System.out.println("CREATE CATEGORY ");
+//        System.out.println(category);
+        itemList = new ArrayList<>();
     }
 
-    private static Ratio createListOfIngredients(List<String> ratio , String ratioUnit){
+    public Menu createNewMenu(List<MenuCategory> categories, String name, String version){
+        menu =  new Menu(categories, name, version);
+        return menu;
+    }
+   public Menu endCreatingMenu(String name, String version){
+        menu.setName(name);
+        menu.setVersion(version);
+        return menu;
+   }
+
+    private Ratio createListOfIngredients(List<String> ratio , String ratioUnit){
         List<Ingredient> ingredients = new LinkedList<>();
         for (String ingr : ratio) {
             ingredients.add(new Ingredient(ingr, ratioUnit));
@@ -59,4 +87,7 @@ public class MenuItemBuilder {
         return new Ratio(ingredients);
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
 }

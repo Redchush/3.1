@@ -2,9 +2,10 @@ package service.parsers.helpers;
 
 
 public class DocumentConstants {
-    // element name constants
-    public static final String ROOT = "Menu";
 
+    // element name constants
+    public static final String MENU = "Menu";
+    public static final String CATEGORY = "category";
     // metaData constants
     public static final String METADATA = "metadata";
     public static final String STRUCTURE = "structure";
@@ -17,6 +18,7 @@ public class DocumentConstants {
 
     public static final String MENU_ITEM = "menuItem";
     public static final String TITLE = "title";
+    public static final String ID = "id";
 
     // menu item content
     public static final String NAME = "name";
@@ -26,7 +28,7 @@ public class DocumentConstants {
     public static final String RATIO = "ratio";
 
     public static final String MENU_ITEM_VARIANT = "menuItemVariant";
-    public static final String PRICE_FOR_EXACT_TYPE = "menuItemVariant";
+    public static final String PRICE_FOR_EXACT_TYPE = "priceForExactType";
 
     //attribute constants
 
@@ -35,6 +37,7 @@ public class DocumentConstants {
     public static final String WEIGHT = "weight";
     public static final String UNIT = "unit";
     public static final String PATH = "path";
+    public static final String VARIANT_NUMBER = "variantNumber";
 }
 /*
 
