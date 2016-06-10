@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu name = "Меню" version="4"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="Menu_XSD.xsd">
+
+    <category>
+        <title>ХОЛОДНЫЕ ЗАКУСКИ</title>
+        <simpleMenuItem>
+            <menuItem id="C_1">
+                <foto path="../images/fish.jpeg"/>
+                <name>Ассорти рыбное</name>
+                <description>Слабосоленая форель,семга</description>
+                <ratio unit="грамм">100 20 15</ratio>
+            </menuItem>
+        </simpleMenuItem>
+
+        <simpleMenuItem>
+            <menuItem id="C_2">
+                <foto path="undefined"/>
+                <name>Тарталетки с красной игрой</name>
+                <description>Тарталетки с красной игрой</description>
+                <ratio unit="грамм">60 50</ratio>
+            </menuItem>
+        </simpleMenuItem>
+
+        <simpleMenuItem>
+            <menuItem id="C_3" >
+                <foto path="undefined"/>
+                <name>Лимон</name>
+                <description></description>
+                <ratio unit="грамм">60</ratio>
+            </menuItem>
+        </simpleMenuItem>
+    </category>
+
+    <category>
+        <title>ГОРЯЧИЕ ЗАКУСКИ</title>
+
+        <simpleMenuItem>
+            <menuItem id="H_1">
+                <foto path="undefined"/>
+                <name>Лобио с шампиньонами</name>
+                <description></description>
+                <ratio unit="грамм">60 5</ratio>
+            </menuItem>
+        </simpleMenuItem>
+
+        <complexMenuItem>
+            <menuItem isComplex="true"  id="H_2" >
+                <foto path="undefined"></foto>
+                <name>Жульен</name>
+                <description>
+                    <menuItemVariant variantNumber="1">c курицей</menuItemVariant>
+                    <menuItemVariant variantNumber="2">c грибами</menuItemVariant>
+                </description>
+                <ratio unit="грамм">120 1</ratio>
+                <price>
+                    <priceForExactType variantNumber="1">145</priceForExactType>
+                    <priceForExactType variantNumber="2">155</priceForExactType>
+                </price>
+            </menuItem>
+        </complexMenuItem>
+
+        <simpleMenuItem>
+            <menuItem id="H_3" >
+                <foto path="undefined"></foto>
+                <name>Ахтамар мясной</name>
+                <description> Колбаса, ветчина, буженина, сыр, запеченые на мангале</description>
+                <ratio unit="шт">1</ratio>
+                <price>165</price>
+            </menuItem>
+        </simpleMenuItem>
+
+    </category>
+
+    <category>
+        <title>ЗАВТРАКИ</title>
+        <simpleMenuItem>
+            <menuItem id="B_1" >
+                <foto path="undefined"></foto>
+                <name>Глазунья</name>
+                <description> 2 яйца </description>
+                <ratio unit="грамм">150</ratio>
+                <price>165</price>
+            </menuItem>
+        </simpleMenuItem>
+
+        <simpleMenuItem>
+            <menuItem id="B_2">
+                <foto path="undefined"></foto>
+                <name>Омлет</name>
+                <description></description>
+                <ratio unit="грамм">100</ratio>
+                <price>165</price>
+            </menuItem>
+        </simpleMenuItem>
+
+        <simpleMenuItem>
+            <menuItem id="B_3">
+                <foto path="undefined"></foto>
+                <name>Блинчики с мясом</name>
+                <description>Жареные блинчики с мясом</description>
+                <ratio unit="грамм">150</ratio>
+                <price>165</price>
+            </menuItem>
+        </simpleMenuItem>
+
+    </category>
+</menu>
